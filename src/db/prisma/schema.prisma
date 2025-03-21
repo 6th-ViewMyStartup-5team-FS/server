@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 투자자 정보 저장
+model User {
+  id          String       @id @default(uuid())
+  username    String       @unique // 투자자 이름 (고유)
+  email       String       @unique
+  password    String // 비밀번호 (해싱 필요)
+  investments Investment[]
+  createdAt   DateTime     @default(now())
+}
+
+// 전체 스타트업 목록
+// vmsTotalInvestment로 따로 생성해놨는데 참고참고 (수정 의견 원함)
+model Startup {
+  id                 String       @id @default(uuid())
+  companyName        String
+  introduce          String
+  category           String
+  totalAmount        Int // 실제 스타트업이 받은 총 투자금
+  salesRevenue       Int // 매출액
+  numOfEmployees     Int // 고용 인원
+  vmsTotalInvestment Int          @default(0) // View My Startup에서 받은 총 투자금 (가상 투자 총합)
+  investments        Investment[]
+  createdAt          DateTime     @default(now())
+}
+
+// 투자 모달
+model Investment {
+  id       String  @id @default(uuid())
+  amount   Int // 투자 금액 (개별 투자)
+  comment  String? // 투자 코멘트
+  password String // 비밀번호 (삭제/수정 인증용, 해싱 필요)
+
+  startupId String
+  startup   Startup @relation(fields: [startupId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+}
