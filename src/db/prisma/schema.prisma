@@ -12,6 +12,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+<<<<<<< HEAD
 
 // 투자자 정보 저장
 model User {
@@ -53,3 +54,5 @@ model Investment {
 
   createdAt DateTime @default(now())
 }
+=======
+>>>>>>> 최지예BE
