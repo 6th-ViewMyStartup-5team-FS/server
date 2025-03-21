@@ -1,0 +1,19 @@
+### 기업 등록하기 (여기서 쭈루룩 등록해주기)
+POST http://localhost:2222/startups
+Content-Type: application/json
+
+{
+    "companyName": "코드잇",
+    "introduce": "저희만 믿고 따라오십쇼",
+    "category": "에듀테크",
+    "totalAmount": 140,
+    "salesRevenue": 50,
+    "numOfEmployees": 68,
+    "vmsTotalInvestment": 0
+}
+
+### 전체 기업 리스트
+GET http://localhost:2222/startups
+
+### 기업 검색
+GET http://localhost:2222/startups/1
