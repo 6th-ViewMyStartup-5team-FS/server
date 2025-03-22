@@ -1,5 +1,5 @@
 ### 회원가입하기
-POST  http://localhost:2222/users/sign-up
+POST  http://localhost:7777/users/sign-up
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### 로그인
-POST http://localhost:2222/users/log-in
+POST http://localhost:7777/users/log-in
 Content-Type: application/json
 
 {

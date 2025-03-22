@@ -26,12 +26,12 @@ model User {
 // 전체 스타트업 목록
 // vmsTotalInvestment로 따로 생성해놨는데 참고참고 (수정 의견 원함)
 model Startup {
-  id                 String       @id @default(uuid())
-  companyName        String
-  introduce          String
-  category           String
+  id                 Int          @id @default(autoincrement())
+  companyName        String       @default("")
+  introduce          String       @default("")
+  category           String       @default("")
   totalAmount        Int // 실제 스타트업이 받은 총 투자금
-  salesRevenue       Int // 매출액
+  salesRevenue       Int // 매출액 
   numOfEmployees     Int // 고용 인원
   vmsTotalInvestment Int          @default(0) // View My Startup에서 받은 총 투자금 (가상 투자 총합)
   investments        Investment[]
@@ -41,11 +41,11 @@ model Startup {
 // 투자 모달
 model Investment {
   id       String  @id @default(uuid())
-  amount   Int // 투자 금액 (개별 투자)
+  amount   Int     @default(0) // 투자 금액 (개별 투자)
   comment  String? // 투자 코멘트
   password String // 비밀번호 (삭제/수정 인증용, 해싱 필요)
 
-  startupId String
+  startupId Int
   startup   Startup @relation(fields: [startupId], references: [id])
 
   userId String
